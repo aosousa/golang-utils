@@ -1,6 +1,10 @@
 package utils
 
-import "time"
+import (
+	"encoding/json"
+	"net/http"
+	"time"
+)
 
 /*FindStringInSlice detects if a string is in a slice.
 
@@ -32,4 +36,18 @@ func GetCurrentDateTime() string {
 // IsEmpty checks if a required string field is empty
 func IsEmpty(field string) bool {
 	return field == ""
+}
+
+/*SetResponse sets the response to be sent to the user in any API endpoints.
+
+Receives:
+	* w (http.ResponseWriter) - Go's HTTP ResponseWriter struct
+ 	* statusCode (int) - HTTP status code of the response
+ 	* body (HTTPResponse) - Body of the HTTP response using a custom struct
+*/
+func SetResponse(w http.ResponseWriter, statusCode int, body HTTPResponse) {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(statusCode)
+	json.NewEncoder(w).Encode(body)
+	return
 }
