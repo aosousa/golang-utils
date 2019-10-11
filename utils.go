@@ -2,7 +2,9 @@ package utils
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -50,4 +52,11 @@ func SetResponse(w http.ResponseWriter, statusCode int, body HTTPResponse) {
 	w.WriteHeader(statusCode)
 	json.NewEncoder(w).Encode(body)
 	return
+}
+
+// HandleError is a basic error handling method.
+// Prints out the error that occurred and exits the application.
+func HandleError(err error) {
+	fmt.Printf("%s", err)
+	os.Exit(1)
 }
