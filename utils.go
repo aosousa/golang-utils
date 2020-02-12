@@ -54,6 +54,27 @@ func SetResponse(w http.ResponseWriter, statusCode int, body HTTPResponse) {
 	return
 }
 
+/*CalculateStringDistance calculates the number of empty characters required to match a
+longer string above it (i.e. in a printed table)
+
+Receives:
+	* baseDistance (int) - Length of the string to match
+	* name (string) - String to add empty characters to
+
+Returns:
+	* string - New string with the required added spaces to match the string above it
+
+*/
+func CalculateStringDistance(baseDistance int, name string) string {
+	stringDistanceLen := baseDistance - len(name)
+	stringDistance := ""
+	for i := 0; i <= stringDistanceLen; i++ {
+		stringDistance = stringDistance + " "
+	}
+
+	return stringDistance
+}
+
 // HandleError is a basic error handling method.
 // Prints out the error that occurred and exits the application.
 func HandleError(err error) {
